@@ -19,8 +19,8 @@ def cli():
 )
 def create(title: Optional[str], text: Optional[str], interval: Optional[str]) -> None:
     """Create MacOS notifications in crontabs"""
-    title_str = title if title else ""
-    text_str = text if text else ""
+    title_str = title or ""
+    text_str = text or ""
     command_setup = len(title_str) != 0 and len(text_str) != 0
 
     while not command_setup:
@@ -59,7 +59,7 @@ def create(title: Optional[str], text: Optional[str], interval: Optional[str]) -
             ),
             type=str,
         )
-    interval_str = interval if interval else "* * * * *"
+    interval_str = interval or "* * * * *"
 
     msg = create_crontab(title_str, text_str, interval_str)
     click.echo(click.style(msg, fg="yellow"))
