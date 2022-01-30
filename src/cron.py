@@ -71,10 +71,7 @@ def delete_crontab(
         jobs_list = "\n".join(lst)
         msg = f"Removed the following jobs:\n {jobs_list}"
     elif list_jobs:
-        lst = []
-        for job in cron:
-            lst.append(str(job))
-
+        lst = [str(job) for job in cron]
         msg = "\n".join(lst)
     elif search_job:
         cron.remove_all(search_job)
@@ -100,8 +97,6 @@ def delete_crontab(
 
 def get_crontab() -> CronTab:
     """Helper function to setup the crontab object."""
-    tab_file_name = os.environ.get(TAB_FILE)
-
-    if tab_file_name:
+    if tab_file_name := os.environ.get(TAB_FILE):
         return CronTab(user=True, tabfile=tab_file_name)
     return CronTab(user=True)
